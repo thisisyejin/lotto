@@ -15,4 +15,15 @@ describe("로또 클래스 테스트", () => {
   });
 
   // TODO: 추가 기능 구현에 따른 테스트 코드 작성
+  test("발행된 로또 번호와 당첨 번호를 비교하여 일치하는 개수를 반환한다.", () => {
+    const A = new Lotto([1, 2, 3, 4, 5, 6]);
+    const B = new Lotto([1, 2, 3, 14, 15, 16]);
+    expect(A.compare(B)).toEqual(3);
+  });
+
+  test("발행된 로또 번호가 보너스 번호를 포함하는지 여부를 반환한다.", () => {
+    const A = new Lotto([1, 2, 3, 4, 5, 6]);
+    const bonusNumber = 6;
+    expect(A.include(bonusNumber)).toEqual(true);
+  });
 });

@@ -1,3 +1,5 @@
+import { MissionUtils } from "@woowacourse/mission-utils";
+
 class Lotto {
   #numbers;
 
@@ -13,6 +15,21 @@ class Lotto {
   }
 
   // TODO: 추가 기능 구현
+  print() {
+    MissionUtils.Console.print(`[${this.#numbers.join(', ')}]`)
+  }
+
+  compare(winningLotto) {
+    let cnt = 0;
+    Array.from({ length: 6 }).forEach((_, idx) => {
+      if (this.#numbers.includes(winningLotto.#numbers[idx])) cnt++;
+    })
+    return cnt;
+  }
+
+  include(bonusNumber) {
+    return this.#numbers.includes(bonusNumber);
+  }
 }
 
 export default Lotto;

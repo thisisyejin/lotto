@@ -1,4 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import Lotto from "./Lotto.js";
 
 class App {
   async run() {
@@ -8,16 +9,16 @@ class App {
     // count개 만큼 로또 발매
 
     // 로또 번호 발행
-    let lottos = [];
+    let lottos = [];  // Lotto 객체들의 배열
     for (let i = 0; i < count; i++) {
-      lottos.push(MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b));
+      lottos.push(new Lotto(MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b)));
     }
 
     MissionUtils.Console.print(`\n${count}개를 구매했습니다.`);
-    lottos.forEach(lotto => MissionUtils.Console.print(`[${lotto.join(', ')}]`));
+    lottos.forEach(lotto => lotto.print());
 
     let winningNumbers = await MissionUtils.Console.readLineAsync('\n당첨 번호를 입력해주세요.\n');
-    winningNumbers = winningNumbers.split(',').map(number => Number(number));
+    winningNumbers = new Lotto(winningNumbers.split(',').map(number => Number(number)));
     // 6개가 아닐 때, 로또 숫자가 아닐 때, 중복될 때 예외 처리
 
     let bonusNumber = await MissionUtils.Console.readLineAsync('\n보너스 번호를 입력해주세요.\n');
@@ -30,12 +31,8 @@ class App {
     }
     for (let i = 0; i < count; i++) { // 로또 수량만큼 비교
       // 이 안에 정답 요소가 몇 개나 있는지?
-      let cnt = 0;
-      let isBonus = false;
-      for (let j = 0; j < 6; j++) {
-        if (lottos[i].includes(winningNumbers[j])) cnt++;
-      }
-      if (lottos[i].includes(bonusNumber)) isBonus = true;
+      const cnt = lottos[i].compare(winningNumbers);
+      const isBonus = lottos[i].include(bonusNumber);
 
       if (cnt == 6) score.six++;
       else if (cnt == 5 && isBonus == true) score.fiveBonus++;
