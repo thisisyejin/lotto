@@ -3,7 +3,7 @@ import InputView from "./InputView.js";
 import Lotto from "./Lotto.js";
 
 class Game {
-  static async askPayment() {
+  static async buyLotto() {
     // TODO: 예외 처리 필요
     try {
       const payment = await InputView.readNumber('\n구입 금액을 입력해 주세요.\n');
@@ -13,7 +13,7 @@ class Game {
 
     } catch (err) {
       MissionUtils.Console.print(err.message);
-      return this.askPayment();
+      return this.buyLotto();
     }
   }
 
