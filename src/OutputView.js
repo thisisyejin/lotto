@@ -1,8 +1,9 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
 
 const OutputView = {
-  printLotto(lotto) {
-    MissionUtils.Console.print(`[${lotto.numbers.join(', ')}]`);
+  printLotto(lottos) {
+    MissionUtils.Console.print(`\n${lottos.length}개를 구매했습니다.`);
+    lottos.forEach(lotto => MissionUtils.Console.print(`[${lotto.numbers.join(', ')}]`));
   },
 
   printScore(quantity, score) {

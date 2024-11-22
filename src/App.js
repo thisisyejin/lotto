@@ -1,25 +1,24 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
-import Lotto from "./Lotto.js";
 import Game from "./Game.js";
 import Score from "./Score.js";
 import OutputView from "./OutputView.js";
 
 class App {
   async run() {
+    // 로또 구입
     const lottos = await Game.askPayment();
 
-    // 로또 번호 출력
-    MissionUtils.Console.print(`\n${lottos.length}개를 구매했습니다.`);
-    lottos.forEach(lotto => OutputView.printLotto(lotto));
+    // 로또 출력
+    OutputView.printLotto(lottos);
 
+    // 당첨 & 보너스 번호 입력
     const winningNumbers = await Game.askWinningNumbers();
     const bonusNumber = await Game.askBonusNumber(winningNumbers);
 
-    // 점수 비교
+    // 당첨 내역 확인
     const score = new Score(lottos, winningNumbers, bonusNumber);
     score.calculateProfit();
 
-    // 상금 계산
+    // 당첨 내역 출력
     OutputView.printScore(lottos.length, score);
   }
 }
