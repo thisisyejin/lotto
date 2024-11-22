@@ -15,7 +15,7 @@ class App {
     lottos.forEach(lotto => lotto.print());
 
     const winningNumbers = await Game.askWinningNumbers();
-    const bonusNumber = await Game.askBonusNumber();
+    const bonusNumber = await Game.askBonusNumber(winningNumbers);
 
     // 점수 비교
     let benefit = 0;
@@ -37,7 +37,8 @@ class App {
     // 상금 계산
     benefit = score.six * 2000000000 + score.fiveBonus * 30000000 + score.five * 1500000 + score.four * 50000 + score.three * 5000;
     const benefitRate = (benefit / (quantity * 1000) * 100).toFixed(1);
-    MissionUtils.Console.print(`당첨 통계
+    MissionUtils.Console.print(`
+당첨 통계
 ---
 3개 일치 (5,000원) - ${score.three}개
 4개 일치 (50,000원) - ${score.four}개
