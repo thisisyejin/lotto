@@ -16,8 +16,7 @@ class App {
 
     // 당첨 내역 확인
     const score = new Score(lottos, winningNumbers, bonusNumber);
-    score.calculateProfit();
-
+    
     // 당첨 내역 출력
     OutputView.printScore(lottos.length, score);
   }

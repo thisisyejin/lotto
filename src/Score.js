@@ -1,4 +1,4 @@
-import { PRICE } from "./constants/lottoRules";
+import { PRICE } from "./constants/lottoRules.js";
 
 class Score {
   #list;
@@ -22,7 +22,7 @@ class Score {
     return this.#list;
   }
 
-  calculateProfit() {
+  #calculateProfit() {
     this.#profit = this.#list.six * 2000000000
       + this.#list.fiveBonus * 30000000
       + this.#list.five * 1500000
@@ -31,6 +31,7 @@ class Score {
   }
 
   calculateProfitRate(quantity) {
+    this.#calculateProfit();
     return (this.#profit / (quantity * PRICE) * 100).toFixed(1);
   }
 }

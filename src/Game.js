@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { MIN_NUMBER, MAX_NUMBER, NUMBER_COUNT, PRICE } from "./lottoRules.js";
+import { MIN_NUMBER, MAX_NUMBER, NUMBER_COUNT, PRICE } from "./constants/lottoRules.js";
 import ERROR_MESSAGE from "./constants/errorMessages.js";
 import InputView from "./views/InputView.js";
 import Lotto from "./Lotto.js";
