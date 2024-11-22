@@ -1,3 +1,6 @@
+import ERROR_MESSAGE from "./constants/errorMessages.js";
+import { MIN_NUMBER, MAX_NUMBER, NUMBER_COUNT } from "./constants/lottoRules.js";
+
 class Lotto {
   #numbers;
 
@@ -7,13 +10,13 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
-      throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
+    if (numbers.length !== NUMBER_COUNT) {
+      throw new Error(ERROR_MESSAGE.NUMBERS_ARE_NOT_SIX);
     }
     numbers.forEach(number => {
-      if (number < 1 || number > 45) throw Error('[ERROR] 로또 번호는 1에서 45 사이의 숫자여야 합니다.');
+      if (number < MIN_NUMBER || number > MAX_NUMBER) throw Error(ERROR_MESSAGE.NUMBER_IS_NOT_IN_RANGE);
       if (numbers.indexOf(number) !== numbers.lastIndexOf(number))
-        throw new Error('[ERROR] 로또 번호는 중복되지 않은 숫자 6개여야 합니다.');
+        throw new Error(ERROR_MESSAGE.NUMBERS_ARE_REPEATED);
     });
   }
 

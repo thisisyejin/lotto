@@ -1,5 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils"
-import Lotto from "./Lotto.js";
+import Lotto from "../Lotto.js";
+import ERROR_MESSAGE from "../constants/errorMessages.js";
 
 const InputView = {
   async readNumber(askMessage) {
@@ -17,9 +18,9 @@ const InputView = {
   },
 
   isInteger(input) {
-    if (input.trim().length <= 0) throw Error('[ERROR] 공백은 입력할 수 없습니다.');
-    if (isNaN(input)) throw Error('[ERROR] 문자는 입력할 수 없습니다.');
-    if (input.includes('.')) throw Error('[ERROR] 소수는 입력할 수 없습니다.');
+    if (input.trim().length <= 0) throw Error(ERROR_MESSAGE.INPUT_IS_BLANK);
+    if (isNaN(input)) throw Error(ERROR_MESSAGE.INPUT_IS_STRING);
+    if (input.includes('.')) throw Error(ERROR_MESSAGE.INPUT_IS_DECIMAL);
   }
 }
 

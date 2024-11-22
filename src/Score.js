@@ -1,3 +1,5 @@
+import { PRICE } from "./constants/lottoRules";
+
 class Score {
   #list;
   #profit;
@@ -29,7 +31,7 @@ class Score {
   }
 
   calculateProfitRate(quantity) {
-    return (this.#profit / (quantity * 1000) * 100).toFixed(1);
+    return (this.#profit / (quantity * PRICE) * 100).toFixed(1);
   }
 }
 

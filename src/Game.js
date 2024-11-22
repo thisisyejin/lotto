@@ -1,15 +1,16 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import InputView from "./InputView.js";
+import { MIN_NUMBER, MAX_NUMBER, NUMBER_COUNT, PRICE } from "./lottoRules.js";
+import ERROR_MESSAGE from "./constants/errorMessages.js";
+import InputView from "./views/InputView.js";
 import Lotto from "./Lotto.js";
 
 class Game {
   static async buyLotto() {
-    // TODO: 예외 처리 필요
     try {
       const payment = await InputView.readNumber('\n구입 금액을 입력해 주세요.\n');
       this.isValidPayment(payment);
-      return Array.from({ length: payment / 1000 }, () =>
-        new Lotto(MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b)));
+      return Array.from({ length: payment / PRICE }, () =>
+        new Lotto(MissionUtils.Random.pickUniqueNumbersInRange(MIN_NUMBER, MAX_NUMBER, NUMBER_COUNT).sort((a, b) => a - b)));
 
     } catch (err) {
       MissionUtils.Console.print(err.message);
@@ -18,8 +19,8 @@ class Game {
   }
 
   static isValidPayment(payment) {
-    if (payment % 1000 !== 0) throw Error('[ERROR] 구입 금액은 천 원 단위로 입력해 주세요.');
-    if (payment < 1000) throw Error('[ERROR] 구입 금액은 천 원 이상 입력해 주세요.');
+    if (payment % PRICE !== 0) throw Error(ERROR_MESSAGE.PAYMENT_IS_NOT_PRICE_PER_UNIT);
+    if (payment < PRICE) throw Error(ERROR_MESSAGE.PAYMENT_IS_UNDER_PRICE);
   }
 
   static async askWinningNumbers() {
@@ -35,8 +36,8 @@ class Game {
   static async askBonusNumber(winningNumbers) {
     try {
       const bonusNumber = await InputView.readNumber('\n보너스 번호를 입력해 주세요.\n');
-      if (winningNumbers.include(bonusNumber)) throw Error('[ERROR] 당첨 번호와 중복되지 않는 숫자를 입력해 주세요.');
-      if (bonusNumber < 1 || bonusNumber > 45) throw Error('[ERROR] 로또 번호는 1에서 45 사이의 숫자여야 합니다.');
+      if (winningNumbers.include(bonusNumber)) throw Error(ERROR_MESSAGE.BONUS_IS_REPEATED);
+      if (bonusNumber < MIN_NUMBER || bonusNumber > MAX_NUMBER) throw Error(ERROR_MESSAGE.NUMBER_IS_NOT_IN_RANGE);
       return bonusNumber;
 
     } catch (err) {

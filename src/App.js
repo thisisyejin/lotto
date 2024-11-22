@@ -1,6 +1,6 @@
 import Game from "./Game.js";
 import Score from "./Score.js";
-import OutputView from "./OutputView.js";
+import OutputView from "./views/OutputView.js";
 
 class App {
   async run() {
