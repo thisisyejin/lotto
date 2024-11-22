@@ -3,18 +3,13 @@ import InputView from "./InputView.js";
 import Lotto from "./Lotto.js";
 
 class Game {
-  // quantity;
-  // lottos;
-  // winningNumbers;
-  // bonusNumber;
-  // result;
-
   static async askPayment() {
     // TODO: 예외 처리 필요
     try {
       const payment = await InputView.readNumber('\n구입 금액을 입력해 주세요.\n');
       this.isValidPayment(payment);
-      return payment / 1000;
+      return Array.from({ length: payment / 1000 }, () =>
+        new Lotto(MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b)));
 
     } catch (err) {
       MissionUtils.Console.print(err.message);

@@ -6,14 +6,10 @@ import OutputView from "./OutputView.js";
 
 class App {
   async run() {
-    const quantity = await Game.askPayment();
-
-    // 로또 번호 발행
-    const lottos = Array.from({ length: quantity }, () =>
-      new Lotto(MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6).sort((a, b) => a - b)));
+    const lottos = await Game.askPayment();
 
     // 로또 번호 출력
-    MissionUtils.Console.print(`\n${quantity}개를 구매했습니다.`);
+    MissionUtils.Console.print(`\n${lottos.length}개를 구매했습니다.`);
     lottos.forEach(lotto => OutputView.printLotto(lotto));
 
     const winningNumbers = await Game.askWinningNumbers();
@@ -24,7 +20,7 @@ class App {
     score.calculateProfit();
 
     // 상금 계산
-    OutputView.printScore(quantity, score);
+    OutputView.printScore(lottos.length, score);
   }
 }
 
