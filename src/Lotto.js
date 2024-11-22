@@ -1,5 +1,3 @@
-import { MissionUtils } from "@woowacourse/mission-utils";
-
 class Lotto {
   #numbers;
 
@@ -25,11 +23,8 @@ class Lotto {
   }
 
   compare(winningLotto) {
-    let cnt = 0;
-    Array.from({ length: 6 }).forEach((_, idx) => {
-      if (this.#numbers.includes(winningLotto.#numbers[idx])) cnt++;
-    })
-    return cnt;
+    return this.#numbers.filter(number =>
+      winningLotto.#numbers.includes(number)).length;
   }
 
   include(bonusNumber) {

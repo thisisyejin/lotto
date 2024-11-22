@@ -5,7 +5,8 @@ import OutputView from "./OutputView.js";
 class App {
   async run() {
     // 로또 구입
-    const lottos = await Game.buyLotto()
+    const lottos = await Game.buyLotto();
+    
     // 로또 출력
     OutputView.printLotto(lottos);
 
