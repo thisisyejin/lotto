@@ -20,8 +20,8 @@ class Lotto {
   }
 
   // TODO: 추가 기능 구현
-  print() {
-    MissionUtils.Console.print(`[${this.#numbers.join(', ')}]`)
+  get numbers() {
+    return this.#numbers;
   }
 
   compare(winningLotto) {
