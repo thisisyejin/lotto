@@ -30,7 +30,7 @@ class Score {
 
   calculateProfitRate(quantity) {
     this.#calculateProfit();
-    return (this.#profit / (quantity * PRICE) * 100).toFixed(1);
+    return parseFloat((this.#profit / (quantity * PRICE) * 100).toFixed(1)).toLocaleString('ko-KR');
   }
 }
 
