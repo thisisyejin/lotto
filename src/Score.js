@@ -5,13 +5,11 @@ class Score {
   #profit;
 
   constructor(lottos, winningNumbers, bonusNumber) {
+    this.#list = { three: 0, four: 0, five: 0, fiveBonus: 0, six: 0 };
     lottos.forEach(lotto => {
-      this.#list = { three: 0, four: 0, five: 0, fiveBonus: 0, six: 0 };
       const matches = lotto.compare(winningNumbers);
-      const isBonus = lotto.include(bonusNumber);
-
       if (matches == 6) this.#list.six++;
-      else if (matches == 5 && isBonus) this.#list.fiveBonus++;
+      else if (matches == 5 && lotto.include(bonusNumber)) this.#list.fiveBonus++;
       else if (matches == 5) this.#list.five++;
       else if (matches == 4) this.#list.four++;
       else if (matches == 3) this.#list.three++;
