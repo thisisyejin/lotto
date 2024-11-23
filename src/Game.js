@@ -19,8 +19,8 @@ const Game = Object.freeze({
   },
 
   isValidPayment(payment) {
-    if (payment % PRICE !== 0) throw Error(ERROR_MESSAGE.PAYMENT_IS_NOT_PRICE_PER_UNIT);
     if (payment < PRICE) throw Error(ERROR_MESSAGE.PAYMENT_IS_UNDER_PRICE);
+    if (payment % PRICE !== 0) throw Error(ERROR_MESSAGE.PAYMENT_IS_NOT_PRICE_PER_UNIT);
   },
 
   async askWinningNumbers() {

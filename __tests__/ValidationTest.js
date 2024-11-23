@@ -1,13 +1,14 @@
-import InputView from "../InputView.js";
+import InputView from "../src/views/InputView.js";
+import ERROR_MESSAGE from "../src/constants/errorMessages.js";
 
-describe("로또 클래스 테스트", () => {
+describe("유효성 검사 테스트", () => {
   test.each([
-    ["입력이 공백이면 예외가 발생한다.", "        "],
-    ["입력이 숫자가 아니면 예외가 발생한다.", "One"],
-    ["입력이 소수이면 예외가 발생한다.", "1234.567"],
-  ])("%s", (_, input) => {
+    ["입력이 공백이면 예외가 발생한다.", "         ", ERROR_MESSAGE.INPUT_IS_BLANK],
+    ["입력이 숫자가 아니면 예외가 발생한다.", "One", ERROR_MESSAGE.INPUT_IS_STRING],
+    ["입력이 소수이면 예외가 발생한다.", "1234.56", ERROR_MESSAGE.INPUT_IS_DECIMAL],
+  ])("%s", (_, input, errorMessage) => {
     expect(() => {
       InputView.isInteger(input);
-    }).toThrow("[ERROR]");
+    }).toThrow(errorMessage);
   });
 });
